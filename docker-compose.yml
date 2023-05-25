@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 2943:3306
+    volumes:
+      - ./docker/mysql/dumps:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+    networks:
+      - net
+  php:
+    build:
+      context: docker/php8-fpm
+      args:
+        TIMEZONE: ${TIMEZONE}
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/php
+      - ./docker/php8-fpm/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - net
+  nginx:
+    build: docker/nginx
+    depends_on:
+      - php
+    ports:
+      - 7890:80
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/php.conf:/etc/nginx/sites-available/php.conf
+      - ./var/log/:/var/log/nginx
+    networks:
+      - net
+volumes:
+  mysql_data:
+networks:
+  net:
+    driver: bridge
