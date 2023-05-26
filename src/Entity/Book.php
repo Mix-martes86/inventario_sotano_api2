@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Repository\BookRepository;
 use App\Enum\BookCondition;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
@@ -20,7 +21,7 @@ class Book
     private string $title;
 
     #[ORM\ManyToMany(targetEntity: 'App\Entity\Author')]
-    private array $authors;
+    private iterable $authors;
 
     #[ORM\ManyToOne(targetEntity: 'App\Entity\Publisher', cascade: ['all'])]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
@@ -42,23 +43,23 @@ class Book
     private BookCondition $bookCondition;
 
     #[ORM\ManyToMany(targetEntity: 'App\Entity\Genre')]
-    private Genre $genre;
+    private iterable $genres;
 
     /**
      * @param int $id
      * @param string $title
-     * @param Author[] $authors
+     * @param Author[]|ArrayCollection $authors
      * @param Publisher $publisher
      * @param DateTime $publishingDate
      * @param string $isbn
      * @param int $edition
      * @param string $publishingOrigin
      * @param BookCondition $bookCondition
-     * @param Genre $genre
+     * @param Genre[]|ArrayCollection $genres
      */
-    public function __construct(int $id, string $title, array $authors, Publisher $publisher,
+    public function __construct(int $id, string $title, iterable|ArrayCollection $authors, Publisher $publisher,
                                 DateTime $publishingDate, string $isbn, int $edition, string $publishingOrigin,
-                                BookCondition $bookCondition, Genre $genre)
+                                BookCondition $bookCondition, iterable|ArrayCollection $genres)
     {
         $this->id = $id;
         $this->title = $title;
@@ -69,7 +70,7 @@ class Book
         $this->edition = $edition;
         $this->publishingOrigin = $publishingOrigin;
         $this->bookCondition = $bookCondition;
-        $this->genre = $genre;
+        $this->genres = $genres;
     }
 
     /**
@@ -105,17 +106,17 @@ class Book
     }
 
     /**
-     * @return Author[]
+     * @return Author[]|ArrayCollection
      */
-    public function getAuthors(): array
+    public function getAuthors(): iterable|ArrayCollection
     {
         return $this->authors;
     }
 
     /**
-     * @param Author[] $authors
+     * @param Author[]|ArrayCollection $authors
      */
-    public function setAuthor(array $authors): void
+    public function setAuthors(iterable|ArrayCollection $authors): void
     {
         $this->authors = $authors;
     }
@@ -217,18 +218,18 @@ class Book
     }
 
     /**
-     * @return Genre
+     * @return Genre[]|ArrayCollection
      */
-    public function getGenre(): Genre
+    public function getGenres(): iterable|ArrayCollection
     {
-        return $this->genre;
+        return $this->genres;
     }
 
     /**
-     * @param Genre $genre
+     * @param Genre[]|ArrayCollection $genres
      */
-    public function setGenre(Genre $genre): void
+    public function setGenres(iterable|ArrayCollection $genres): void
     {
-        $this->genre = $genre;
+        $this->genres = $genres;
     }
 }
