@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Repository\PublisherRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PublisherRepository::class)]
 #[ORM\Table(name: 'publisher')]
+#[ApiResource]
 class Publisher
 {
     #[ORM\Id]

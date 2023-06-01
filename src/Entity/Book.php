@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Repository\BookRepository;
 use App\Enum\BookCondition;
 use DateTime;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 #[ORM\Table(name: 'book')]
+#[ApiResource]
 class Book
 {
     #[ORM\Id]
