@@ -6,7 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: GenreRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'genre')]
 #[ApiResource]
 class Genre
