@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Entity\Repository\AuthorRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AuthorRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'author')]
 #[ApiResource]
 class Author
@@ -26,25 +25,6 @@ class Author
     private ?DateTime $death;
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $country;
-
-    /**
-     * @param int|null $id
-     * @param string $first_name
-     * @param string|null $last_name
-     * @param DateTime|null $birthday
-     * @param DateTime|null $death
-     * @param string|null $country
-     */
-    public function __construct(?int $id, string $first_name, ?string $last_name,
-                                ?DateTime $birthday, ?DateTime $death, ?string $country)
-    {
-        $this->id = $id;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-        $this->birthday = $birthday;
-        $this->death = $death;
-        $this->country = $country;
-    }
 
     /**
      * @return int|null

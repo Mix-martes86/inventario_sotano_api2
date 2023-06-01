@@ -3,10 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Entity\Repository\PublisherRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PublisherRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'publisher')]
 #[ApiResource]
 class Publisher
@@ -19,18 +18,6 @@ class Publisher
     private string $name;
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $country;
-
-    /**
-     * @param int $id
-     * @param string $name
-     * @param string|null $country
-     */
-    public function __construct(int $id, string $name, ?string $country)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->country = $country;
-    }
 
     /**
      * @return int

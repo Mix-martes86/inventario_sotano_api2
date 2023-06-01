@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Entity\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

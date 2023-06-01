@@ -3,13 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Entity\Repository\BookRepository;
 use App\Enum\BookCondition;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: BookRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'book')]
 #[ApiResource]
 class Book
@@ -47,32 +46,10 @@ class Book
     #[ORM\ManyToMany(targetEntity: 'App\Entity\Genre')]
     private iterable $genres;
 
-    /**
-     * @param int|null $id
-     * @param string $title
-     * @param iterable $authors
-     * @param Publisher $publisher
-     * @param DateTime|null $publishingDate
-     * @param string|null $isbn
-     * @param int|null $edition
-     * @param string|null $publishingOrigin
-     * @param BookCondition|null $bookCondition
-     * @param iterable $genres
-     */
-    public function __construct(?int $id, string $title, iterable $authors, Publisher $publisher,
-                                ?DateTime $publishingDate, ?string $isbn, ?int $edition,
-                                ?string $publishingOrigin, ?BookCondition $bookCondition, iterable $genres)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->title = $title;
-        $this->authors = $authors;
-        $this->publisher = $publisher;
-        $this->publishingDate = $publishingDate;
-        $this->isbn = $isbn;
-        $this->edition = $edition;
-        $this->publishingOrigin = $publishingOrigin;
-        $this->bookCondition = $bookCondition;
-        $this->genres = $genres;
+        $this->authors = new ArrayCollection();
+        $this->genres = new ArrayCollection();
     }
 
     /**
