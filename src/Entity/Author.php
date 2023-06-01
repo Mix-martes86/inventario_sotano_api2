@@ -14,29 +14,29 @@ class Author
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $id;
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $first_name;
-    #[ORM\Column(type: 'string')]
-    private string $last_name;
-    #[ORM\Column(type: 'datetime')]
-    private DateTime $birthday;
-    #[ORM\Column(type: 'datetime')]
-    private DateTime $death;
-    #[ORM\Column(type: 'string')]
-    private string $country;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $last_name;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?DateTime $birthday;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?DateTime $death;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $country;
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @param string $first_name
-     * @param string $last_name
-     * @param DateTime $birthday
-     * @param DateTime $death
-     * @param string $country
+     * @param string|null $last_name
+     * @param DateTime|null $birthday
+     * @param DateTime|null $death
+     * @param string|null $country
      */
-    public function __construct
-        (int $id, string $first_name, string $last_name, DateTime $birthday, DateTime $death, string $country)
+    public function __construct(?int $id, string $first_name, ?string $last_name,
+                                ?DateTime $birthday, ?DateTime $death, ?string $country)
     {
         $this->id = $id;
         $this->first_name = $first_name;
@@ -47,17 +47,17 @@ class Author
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      */
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
@@ -79,65 +79,65 @@ class Author
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->last_name;
     }
 
     /**
-     * @param string $last_name
+     * @param string|null $last_name
      */
-    public function setLastName(string $last_name): void
+    public function setLastName(?string $last_name): void
     {
         $this->last_name = $last_name;
     }
 
     /**
-     * @return DateTime
+     * @return DateTime|null
      */
-    public function getBirthday(): DateTime
+    public function getBirthday(): ?DateTime
     {
         return $this->birthday;
     }
 
     /**
-     * @param DateTime $birthday
+     * @param DateTime|null $birthday
      */
-    public function setBirthday(DateTime $birthday): void
+    public function setBirthday(?DateTime $birthday): void
     {
         $this->birthday = $birthday;
     }
 
     /**
-     * @return DateTime
+     * @return DateTime|null
      */
-    public function getDeath(): DateTime
+    public function getDeath(): ?DateTime
     {
         return $this->death;
     }
 
     /**
-     * @param DateTime $death
+     * @param DateTime|null $death
      */
-    public function setDeath(DateTime $death): void
+    public function setDeath(?DateTime $death): void
     {
         $this->death = $death;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
     /**
-     * @param string $country
+     * @param string|null $country
      */
-    public function setCountry(string $country): void
+    public function setCountry(?string $country): void
     {
         $this->country = $country;
     }

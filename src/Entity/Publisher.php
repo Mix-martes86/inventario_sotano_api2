@@ -13,19 +13,19 @@ class Publisher
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $id;
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $name;
-    #[ORM\Column(type: 'string')]
-    private string $country;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $country;
 
     /**
      * @param int $id
      * @param string $name
-     * @param string $country
+     * @param string|null $country
      */
-    public function __construct(int $id, string $name, string $country)
+    public function __construct(int $id, string $name, ?string $country)
     {
         $this->id = $id;
         $this->name = $name;
@@ -65,17 +65,17 @@ class Publisher
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
     /**
-     * @param string $country
+     * @param string|null $country
      */
-    public function setCountry(string $country): void
+    public function setCountry(?string $country): void
     {
         $this->country = $country;
     }

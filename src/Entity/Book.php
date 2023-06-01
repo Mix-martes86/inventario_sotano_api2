@@ -16,10 +16,10 @@ class Book
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $id;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $title;
 
     #[ORM\ManyToMany(targetEntity: 'App\Entity\Author')]
@@ -29,39 +29,39 @@ class Book
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private Publisher $publisher;
 
-    #[ORM\Column(type: 'datetime')]
-    private DateTime $publishingDate;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?DateTime $publishingDate;
 
-    #[ORM\Column(type: 'string')]
-    private string $isbn;
+    #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    private ?string $isbn;
 
-    #[ORM\Column(type: 'integer')]
-    private int $edition;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $edition;
 
-    #[ORM\Column(type: 'string')]
-    private string $publishingOrigin; //city
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $publishingOrigin; //city
 
-    #[ORM\Column(type: 'string')]
-    private BookCondition $bookCondition;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?BookCondition $bookCondition;
 
     #[ORM\ManyToMany(targetEntity: 'App\Entity\Genre')]
     private iterable $genres;
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @param string $title
-     * @param Author[]|ArrayCollection $authors
+     * @param iterable $authors
      * @param Publisher $publisher
-     * @param DateTime $publishingDate
-     * @param string $isbn
-     * @param int $edition
-     * @param string $publishingOrigin
-     * @param BookCondition $bookCondition
-     * @param Genre[]|ArrayCollection $genres
+     * @param DateTime|null $publishingDate
+     * @param string|null $isbn
+     * @param int|null $edition
+     * @param string|null $publishingOrigin
+     * @param BookCondition|null $bookCondition
+     * @param iterable $genres
      */
-    public function __construct(int $id, string $title, iterable|ArrayCollection $authors, Publisher $publisher,
-                                DateTime $publishingDate, string $isbn, int $edition, string $publishingOrigin,
-                                BookCondition $bookCondition, iterable|ArrayCollection $genres)
+    public function __construct(?int $id, string $title, iterable $authors, Publisher $publisher,
+                                ?DateTime $publishingDate, ?string $isbn, ?int $edition,
+                                ?string $publishingOrigin, ?BookCondition $bookCondition, iterable $genres)
     {
         $this->id = $id;
         $this->title = $title;
@@ -76,17 +76,17 @@ class Book
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      */
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
@@ -108,22 +108,6 @@ class Book
     }
 
     /**
-     * @return Author[]|ArrayCollection
-     */
-    public function getAuthors(): iterable|ArrayCollection
-    {
-        return $this->authors;
-    }
-
-    /**
-     * @param Author[]|ArrayCollection $authors
-     */
-    public function setAuthors(iterable|ArrayCollection $authors): void
-    {
-        $this->authors = $authors;
-    }
-
-    /**
      * @return Publisher
      */
     public function getPublisher(): Publisher
@@ -140,83 +124,99 @@ class Book
     }
 
     /**
-     * @return DateTime
+     * @return DateTime|null
      */
-    public function getPublishingDate(): DateTime
+    public function getPublishingDate(): ?DateTime
     {
         return $this->publishingDate;
     }
 
     /**
-     * @param DateTime $publishingDate
+     * @param DateTime|null $publishingDate
      */
-    public function setPublishingDate(DateTime $publishingDate): void
+    public function setPublishingDate(?DateTime $publishingDate): void
     {
         $this->publishingDate = $publishingDate;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIsbn(): string
+    public function getIsbn(): ?string
     {
         return $this->isbn;
     }
 
     /**
-     * @param string $isbn
+     * @param string|null $isbn
      */
-    public function setIsbn(string $isbn): void
+    public function setIsbn(?string $isbn): void
     {
         $this->isbn = $isbn;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getEdition(): int
+    public function getEdition(): ?int
     {
         return $this->edition;
     }
 
     /**
-     * @param int $edition
+     * @param int|null $edition
      */
-    public function setEdition(int $edition): void
+    public function setEdition(?int $edition): void
     {
         $this->edition = $edition;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPublishingOrigin(): string
+    public function getPublishingOrigin(): ?string
     {
         return $this->publishingOrigin;
     }
 
     /**
-     * @param string $publishingOrigin
+     * @param string|null $publishingOrigin
      */
-    public function setPublishingOrigin(string $publishingOrigin): void
+    public function setPublishingOrigin(?string $publishingOrigin): void
     {
         $this->publishingOrigin = $publishingOrigin;
     }
 
     /**
-     * @return BookCondition
+     * @return BookCondition|null
      */
-    public function getBookCondition(): BookCondition
+    public function getBookCondition(): ?BookCondition
     {
         return $this->bookCondition;
     }
 
     /**
-     * @param BookCondition $bookCondition
+     * @param BookCondition|null $bookCondition
      */
-    public function setBookCondition(BookCondition $bookCondition): void
+    public function setBookCondition(?BookCondition $bookCondition): void
     {
         $this->bookCondition = $bookCondition;
+    }
+
+    /**
+     * @return Author[]|ArrayCollection
+     */
+    public function getAuthors(): iterable|ArrayCollection
+    {
+        return $this->authors;
+    }
+
+    /**
+     * @param Author[]|ArrayCollection $authors
+     */
+    public function setAuthors(iterable|ArrayCollection $authors): void
+    {
+        $this->authors = $authors;
     }
 
     /**
