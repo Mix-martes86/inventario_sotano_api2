@@ -40,7 +40,7 @@ class Book
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $publishingOrigin; //city
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'int', nullable: true)]
     private ?BookCondition $bookCondition;
 
     #[ORM\ManyToMany(targetEntity: 'App\Entity\Genre')]
