@@ -45,6 +45,7 @@
         "mockery/mockery": "^1.5",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.5",
+        "symfony/debug-bundle": "5.4.*",
         "symfony/phpunit-bridge": "*"
     },
     "config": {
