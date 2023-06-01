@@ -19,16 +19,6 @@ class Genre
     private string $name;
 
     /**
-     * @param int|null $id
-     * @param string $name
-     */
-    public function __construct(?int $id, string $name)
-    {
-        $this->id = $id;
-        $this->name = $name;
-    }
-
-    /**
      * @return int|null
      */
     public function getId(): ?int
