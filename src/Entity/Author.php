@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -20,11 +21,16 @@ class Author
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $last_name;
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $birthday;
+    private ?DateTimeInterface $birthday;
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $death;
+    private ?DateTimeInterface $death;
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $country;
+
+    public function __construct() {
+        $this->birthday = new DateTime();
+        $this->death = new DateTime();
+    }
 
     /**
      * @return int|null
@@ -75,33 +81,33 @@ class Author
     }
 
     /**
-     * @return DateTime|null
+     * @return DateTimeInterface|null
      */
-    public function getBirthday(): ?DateTime
+    public function getBirthday(): ?DateTimeInterface
     {
         return $this->birthday;
     }
 
     /**
-     * @param DateTime|null $birthday
+     * @param DateTimeInterface|null $birthday
      */
-    public function setBirthday(?DateTime $birthday): void
+    public function setBirthday(?DateTimeInterface $birthday): void
     {
         $this->birthday = $birthday;
     }
 
     /**
-     * @return DateTime|null
+     * @return DateTimeInterface|null
      */
-    public function getDeath(): ?DateTime
+    public function getDeath(): ?DateTimeInterface
     {
         return $this->death;
     }
 
     /**
-     * @param DateTime|null $death
+     * @param DateTimeInterface|null $death
      */
-    public function setDeath(?DateTime $death): void
+    public function setDeath(?DateTimeInterface $death): void
     {
         $this->death = $death;
     }
